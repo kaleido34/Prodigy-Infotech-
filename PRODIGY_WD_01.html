@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgb(3, 68, 143);
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 4px rgba(145, 35, 35, 0.1);
+        }
+
+        #navbar a {
+            color: rgb(240, 240, 237);
+            text-decoration: none;
+            padding: 15px 20px;
+            display: inline-block;
+            transition: color 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        #navbar a:hover {
+            color: #fffb00;
+            border-bottom: 3px solid #fbff00;
+        }
+
+        section {
+            padding: 60px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #000000;
+        }
+
+        p {
+            color: hsl(0, 0%, 0%);
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Categories</a>
+        <a href="#" class="nav-link">Account</a>
+        <a href="#" class="nav-link">Notifications</a>
+        <a href="#" class="nav-link">About</a>
+    </div>
+
+    <section>
+        <h1>This is a demo Website!</h1>
+        <p> Home section.</p>
+    </section>
+
+    <section>
+        <h2>Categories</h2>
+        <p>Click for categories</p>
+    </section>
+
+    <section>
+        <h1>Account</h1>
+        <p> Your account info</p>
+    </section>
+
+    <section>
+        <h2>Notifications</h2>
+        <p>Check Notifications</p>
+    </section>
+
+    <section>
+        <h2>About Us</h2>
+        <p>Check info</p>
+    </section>
+
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navbar = document.getElementById("navbar");
+
+            window.addEventListener("scroll", function() {
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = "rgb(97, 116, 138)";
+                } else {
+                    navbar.style.backgroundColor = "rgb(0, 67, 143)";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

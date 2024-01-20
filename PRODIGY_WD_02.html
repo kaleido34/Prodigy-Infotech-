@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/afdfce9593.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #050505; 
+        }
+
+        {
+            text-align: center;
+        }
+
+        #stopwatch {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background-color: rgb(52, 53, 50); 
+            color: #fff; 
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #000; 
+        }
+
+        #controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-size: 1em;
+            margin: 10px;
+            padding: 12px 24px;
+            cursor: pointer;
+            background-color: #525202; 
+            color: #fff; 
+            border: 2px solid #000; 
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #c8ff00; 
+        }
+
+        #lapTimes {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin: 8px 0;
+            padding: 8px;
+            background-color: #c1c40d;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stopwatch Web Application</h1>
+
+    <div id="stopwatch-container">
+        <div id="stopwatch">00:00:00</div>
+
+        <div id="controls">
+            <button onclick="startStopwatch()">
+                <i class="fas fa-play icon"></i> Start
+            </button>
+            <button onclick="pauseStopwatch()">
+                <i class="fas fa-pause icon"></i> Pause
+            </button>
+            <button onclick="recordLap()">
+                <i class="fas fa-flag icon"></i> Lap
+            </button>
+            <button onclick="resetStopwatch()">
+                <i class="fas fa-sync-alt icon"></i> Reset
+            </button>
+        </div>
+
+        <div id="lapTimes"></div>
+    </div>
+
+    <script>
+        let stopwatchInterval;
+        let startTime;
+        let isRunning = false;
+        let lapCounter = 1;
+        let lapTimes = [];
+
+        function startStopwatch() {
+            if (!isRunning) {
+                startTime = Date.now() - (lapCounter > 1 ? lapTimes[lapCounter - 1] : 0);
+                stopwatchInterval = setInterval(updateStopwatch, 10);
+                isRunning = true;
+            }
+        }
+
+        function pauseStopwatch() {
+            clearInterval(stopwatchInterval);
+            isRunning = false;
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            document.getElementById("stopwatch").textContent = "00:00:00";
+            isRunning = false;
+            lapCounter = 1;
+            lapTimes = [];
+            document.getElementById("lapTimes").innerHTML = "";
+        }
+
+        function updateStopwatch() {
+            const currentTime = Date.now() - startTime;
+            const formattedTime = formatTime(currentTime);
+            document.getElementById("stopwatch").textContent = formattedTime;
+        }
+
+        function recordLap() {
+            if (isRunning) {
+                lapTimes[lapCounter] = Date.now() - startTime;
+                const formattedLapTime = formatTime(lapTimes[lapCounter]);
+                const lapElement = document.createElement("p");
+                lapElement.textContent = `Lap ${lapCounter}: ${formattedLapTime}`;
+                document.getElementById("lapTimes").appendChild(lapElement);
+                lapCounter++;
+            }
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / (60 * 1000));
+            const seconds = Math.floor((time % (60 * 1000)) / 1000);
+            const milliseconds = Math.floor((time % 1000) / 10);
+            return `${padZero(minutes)}:${padZero(seconds)}:${padZero(milliseconds)}`;
+        }
+
+        function padZero(value) {
+            return value < 10 ? `0${value}` : value;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
